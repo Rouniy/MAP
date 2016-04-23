@@ -49,7 +49,7 @@ namespace mapcontrol
     *
     * @class MapGraphicItem mapgraphicitem.h "mapgraphicitem.h"
     */
-    class MapGraphicItem:public QObject,public QGraphicsItem
+    class MapGraphicItem: public AbstractBaseItem
     {
         friend class mapcontrol::OPMapWidget;
         Q_OBJECT
@@ -116,6 +116,7 @@ namespace mapcontrol
         * @return The rectangle in lat/lon coordinates currently selected
         */
         internals::RectLatLng SelectedArea()const{return selectedArea;}
+        internals::RectLatLng ViewArea();
 
     public slots:
         void SetSelectedArea(internals::RectLatLng const& value){selectedArea = value;this->update();}

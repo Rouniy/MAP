@@ -36,10 +36,9 @@
 namespace mapcontrol
 {
 
-    class HomeItem:public QObject,public QGraphicsItem
+    class HomeItem: public AbstractBaseItem
     {
         Q_OBJECT
-        Q_INTERFACES(QGraphicsItem)
     public:
                 enum { Type = UserType + 4 };
         HomeItem(MapGraphicItem* map,OPMapWidget* parent);

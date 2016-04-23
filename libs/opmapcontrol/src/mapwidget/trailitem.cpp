@@ -28,12 +28,18 @@
 #include <QDateTime>
 namespace mapcontrol
 {
-    TrailItem::TrailItem(internals::PointLatLng const& coord,int const& altitude, QBrush color, QGraphicsItem* parent):QGraphicsItem(parent),coord(coord)
+    TrailItem::TrailItem(internals::PointLatLng const& coord,int const& altitude, QBrush color, QGraphicsItem* parent)
+        :AbstractBaseItem(parent),coord(coord)
     {
         m_brush=color;
         QDateTime time=QDateTime::currentDateTime();
         QString coord_str = " " + QString::number(coord.Lat(), 'f', 6) + "   " + QString::number(coord.Lng(), 'f', 6);
         setToolTip(QString(tr("Position:")+"%1\n"+tr("Altitude:")+"%2\n"+tr("Time:")+"%3").arg(coord_str).arg(QString::number(altitude)).arg(time.toString()));
+
+        this->setZValue(4);
+        this->setFlag(QGraphicsItem::ItemIsMovable,true);
+        this->setFlag(QGraphicsItem::ItemIgnoresTransformations,true);
+        this->setFlag(QGraphicsItem::ItemIsSelectable,true);
     }
 
     void TrailItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

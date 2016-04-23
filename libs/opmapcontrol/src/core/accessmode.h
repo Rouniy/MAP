@@ -43,17 +43,17 @@ namespace core {
             /// <summary>
             /// access only server
             /// </summary>
-            ServerOnly,
-
-            /// <summary>
-            /// access first server and caches localy
-            /// </summary>
-            ServerAndCache,
+            UseServer = 1,
 
             /// <summary>
             /// access only cache
             /// </summary>
-            CacheOnly
+            UseCache = 2,
+
+            /// <summary>
+            /// access first server and caches localy
+            /// </summary>
+            ServerAndCache = UseServer | UseCache,
         };
         static QString StrByType(Types const& value)
         {

@@ -36,9 +36,8 @@
 namespace mapcontrol
 {
 
-    class TrailLineItem:public QObject,public QGraphicsLineItem
+    class TrailLineItem: public QGraphicsLineItem
     {
-        Q_OBJECT
         Q_INTERFACES(QGraphicsItem)
     public:
                 enum { Type = UserType + 7 };

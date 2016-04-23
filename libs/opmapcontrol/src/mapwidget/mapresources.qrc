@@ -17,5 +17,23 @@
         <file>images/airplanepip.png</file>
         <file>images/EasystarBlue.png</file>
         <file>images/mapquad.png</file>
+        <file>images/UAV/ico_arrow_04.png</file>
+        <file>images/UAV/ico_w_30_45_p_02.png</file>
+        <file>images/UAV/ico_w_30_45_p_03.png</file>
+    </qresource>
+    <qresource prefix="/NATO">
+        <file>images/NATO/blue.png</file>
+        <file>images/NATO/green.png</file>
+        <file>images/NATO/red.png</file>
+        <file>images/NATO/yellow.png</file>
+    </qresource>
+    <qresource prefix="/ETA">
+        <file>images/ETA/No_image.png</file>
+        <file>images/ETA/target.png</file>
+    </qresource>
+    <qresource prefix="/camera">
+        <file>images/cam/1434588839_owl.png</file>
+        <file>images/cam/eye.png</file>
+        <file>images/cam/eye2.png</file>
     </qresource>
 </RCC>

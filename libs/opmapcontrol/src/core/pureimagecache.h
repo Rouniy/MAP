@@ -35,13 +35,13 @@
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
 #include <QBuffer>
-#include "maptype.h"
-#include "point.h"
 #include <QVariant>
-#include "pureimage.h"
 #include <QList>
 #include <QMutex>
 #include <QReadWriteLock>
+#include "maptype.h"
+#include "point.h"
+#include "pureimage.h"
 namespace core {
     class PureImageCache
     {
@@ -56,9 +56,11 @@ namespace core {
         static bool ExportMapDataToDB(QString sourceFile, QString destFile);
         void deleteOlderTiles(int const& days);
     private:
+        static QString TypeToSubfolder(MapType::Types type);
         QString gtilecache;
         QMutex Mcounter;
-        QReadWriteLock lock;
+        QReadWriteLock rw_lock;
+        QMutex m_writeGuard;
         static qlonglong ConnCounter;
 
     };

@@ -49,10 +49,9 @@ namespace mapcontrol
 *
 * @class UAVItem uavitem.h "mapwidget/uavitem.h"
 */
-    class UAVItem:public QObject,public QGraphicsItem
+    class UAVItem: public AbstractBaseItem
     {
         Q_OBJECT
-        Q_INTERFACES(QGraphicsItem)
     public:
                 enum { Type = UserType + 2 };
         UAVItem(MapGraphicItem* map,OPMapWidget* parent, QString uavPic=QString::fromUtf8(":/uavs/images/mapquad.png"));
@@ -193,6 +192,10 @@ namespace mapcontrol
         int type() const;
 
         void SetUavPic(QString UAVPic);
+
+        void SetFollowMode(bool follow);
+
+		void SetYaw(float yaw);
 
     protected:
         QPixmap pic;

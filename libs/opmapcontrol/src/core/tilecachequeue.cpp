@@ -76,7 +76,7 @@ void TileCacheQueue::run()
             _mutex.lock();
             task = _tileCacheQueue.dequeue();
             _mutex.unlock();
-            Q_ASSERT(task);
+			//LOCAL_ASSERT(task);
             qDebug() << "Cache engine Put:" << task->GetPosition().X() << "," << task->GetPosition().Y();
             Cache* cache = Cache::Instance();
             if(cache) {

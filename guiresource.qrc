@@ -1,0 +1,87 @@
+<RCC>
+    <qresource prefix="/common">
+        <file>common/settings.png</file>
+        <file>common/open.png</file>
+        <file>common/camera.png</file>
+        <file>common/camera48.png</file>
+        <file>common/sync.png</file>
+        <file>common/sync2.png</file>
+        <file>common/uav.png</file>
+        <file>common/uav2.png</file>
+        <file>common/uav3.png</file>
+        <file>common/uav4.png</file>
+        <file>common/View.png</file>
+        <file>common/monitoring.png</file>
+        <file>common/radio.png</file>
+        <file>common/radio2.png</file>
+        <file>common/radio48.png</file>
+        <file>common/scanner.png</file>
+    </qresource>
+    <qresource prefix="/wifi">
+        <file>wifi/wifi-32.png</file>
+        <file>wifi/wifi-32r.png</file>
+        <file>wifi/wifi-32y.png</file>
+    </qresource>
+    <qresource prefix="/connection">
+        <file>connection/connect.png</file>
+        <file>connection/disconnect.png</file>
+    </qresource>
+    <qresource prefix="/new/camera">
+        <file>camera/down.png</file>
+        <file>camera/left.png</file>
+        <file>camera/right.png</file>
+        <file>camera/up.png</file>
+        <file>camera/zoom_in.png</file>
+        <file>camera/zoom_out.png</file>
+    </qresource>
+    <qresource prefix="/MARS">
+        <file>placemark_icons/AAMS/AAMS_enemy.png</file>
+        <file>placemark_icons/AAMS/AAMS_friendly.png</file>
+        <file>placemark_icons/AAMS/AAMS_unknown.png</file>
+        <file>placemark_icons/Airplane/Airplane_enemy.png</file>
+        <file>placemark_icons/Airplane/Airplane_friendly.png</file>
+        <file>placemark_icons/Airplane/Airplane_unknown.png</file>
+        <file>placemark_icons/APC/APC_enemy.png</file>
+        <file>placemark_icons/APC/APC_friendly.png</file>
+        <file>placemark_icons/APC/APC_unknown.png</file>
+        <file>placemark_icons/Auto/Auto_enemy.png</file>
+        <file>placemark_icons/Auto/Auto_friendly.png</file>
+        <file>placemark_icons/Auto/Auto_unknown.png</file>
+        <file>placemark_icons/Cannon/Cannon_enemy.png</file>
+        <file>placemark_icons/Cannon/Cannon_friendly.png</file>
+        <file>placemark_icons/Cannon/Cannon_unknown.png</file>
+        <file>placemark_icons/Fortification/Fortification_enemy.png</file>
+        <file>placemark_icons/Fortification/Fortification_friendly.png</file>
+        <file>placemark_icons/Fortification/Fortification_unknown.png</file>
+        <file>placemark_icons/Helicopter/Helicopter_enemy.png</file>
+        <file>placemark_icons/Helicopter/Helicopter_friendly.png</file>
+        <file>placemark_icons/Helicopter/Helicopter_unknown.png</file>
+        <file>placemark_icons/Howitzer/Howitzer_enemy.png</file>
+        <file>placemark_icons/Howitzer/Howitzer_friendly.png</file>
+        <file>placemark_icons/Howitzer/Howitzer_unknown.png</file>
+        <file>placemark_icons/MissileSystem/MissileSystem_enemy.png</file>
+        <file>placemark_icons/MissileSystem/MissileSystem_friendly.png</file>
+        <file>placemark_icons/MissileSystem/MissileSystem_unknown.png</file>
+        <file>placemark_icons/MLRS/MLRS_enemy.png</file>
+        <file>placemark_icons/MLRS/MLRS_friendly.png</file>
+        <file>placemark_icons/MLRS/MLRS_unknown.png</file>
+        <file>placemark_icons/Mortar/Mortar_enemy.png</file>
+        <file>placemark_icons/Mortar/Mortar_friendly.png</file>
+        <file>placemark_icons/Mortar/Mortar_unknown.png</file>
+        <file>placemark_icons/Point/Point_enemy.png</file>
+        <file>placemark_icons/Point/Point_friendly.png</file>
+        <file>placemark_icons/Point/Point_unknown.png</file>
+        <file>placemark_icons/Ship/Ship_enemy.png</file>
+        <file>placemark_icons/Ship/Ship_friendly.png</file>
+        <file>placemark_icons/Ship/Ship_unknown.png</file>
+        <file>placemark_icons/Soldier/Soldier_Enemy.png</file>
+        <file>placemark_icons/Soldier/Soldier_Friendly.png</file>
+        <file>placemark_icons/Soldier/Soldier_Unknown.png</file>
+        <file>placemark_icons/SPG/SPG_enemy.png</file>
+        <file>placemark_icons/SPG/SPG_friendly.png</file>
+        <file>placemark_icons/SPG/SPG_unknown.png</file>
+        <file>placemark_icons/Tank/Tank_enemy.png</file>
+        <file>placemark_icons/Tank/Tank_friendly.png</file>
+        <file>placemark_icons/Tank/Tank_unknown.png</file>
+    </qresource>
+</RCC>

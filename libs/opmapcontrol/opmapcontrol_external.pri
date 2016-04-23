@@ -3,7 +3,7 @@
 ######################################################################
 
 # HACK! BIG TIME!
-DEFINES += EXTERNAL_USE
+#DEFINES += EXTERNAL_USE
 
 DEPENDPATH  += $$PWD/src/core $$PWD/src/internals $$PWD/src/mapwidget $$PWD/src/internals/projections
 INCLUDEPATH += $$PWD/src/core $$PWD/src/internals $$PWD/src/internals/projections $$PWD/src/mapwidget
@@ -56,14 +56,21 @@ HEADERS += $$PWD/opmapcontrol.h \
            $$PWD/src/mapwidget/uavmapfollowtype.h \
            $$PWD/src/mapwidget/uavtrailtype.h \
            $$PWD/src/mapwidget/waypointitem.h \
+           $$PWD/src/mapwidget/poicameraitem.h \
+           $$PWD/src/mapwidget/poidetails.h \
+           $$PWD/src/mapwidget/poietatarget.h \
+           $$PWD/src/mapwidget/poiitem.h \
            $$PWD/src/internals/projections/lks94projection.h \
            $$PWD/src/internals/projections/mercatorprojection.h \
            $$PWD/src/internals/projections/mercatorprojectionyandex.h \
            $$PWD/src/internals/projections/platecarreeprojection.h \
            $$PWD/src/internals/projections/platecarreeprojectionpergo.h \
-           $$PWD/src/mapwidget/waypointlineitem.h
+           $$PWD/src/mapwidget/waypointlineitem.h \
+           $$PWD/src/mapwidget/abstractbaseitem.h
 
-FORMS += $$PWD/src/mapwidget/mapripform.ui
+FORMS += $$PWD/src/mapwidget/mapripform.ui \
+           $$PWD/src/mapwidget//poidetails.ui
+
 
 SOURCES += $$PWD/src/core/alllayersoftype.cpp \
            $$PWD/src/core/cache.cpp \
@@ -103,11 +110,16 @@ SOURCES += $$PWD/src/core/alllayersoftype.cpp \
            $$PWD/src/mapwidget/traillineitem.cpp \
            $$PWD/src/mapwidget/uavitem.cpp \
            $$PWD/src/mapwidget/waypointitem.cpp \
+           $$PWD/src/mapwidget/poicameraitem.cpp \
+           $$PWD/src/mapwidget/poidetails.cpp \
+           $$PWD/src/mapwidget/poietatarget.cpp \
+           $$PWD/src/mapwidget/poiitem.cpp \
            $$PWD/src/internals/projections/lks94projection.cpp \
            $$PWD/src/internals/projections/mercatorprojection.cpp \
            $$PWD/src/internals/projections/mercatorprojectionyandex.cpp \
            $$PWD/src/internals/projections/platecarreeprojection.cpp \
            $$PWD/src/internals/projections/platecarreeprojectionpergo.cpp \
-           $$PWD/src/mapwidget/waypointlineitem.cpp
+           $$PWD/src/mapwidget/waypointlineitem.cpp \
+           $$PWD/src/mapwidget/abstractbaseitem.cpp
 
 RESOURCES += $$PWD/src/mapwidget/mapresources.qrc

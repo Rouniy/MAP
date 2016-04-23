@@ -28,13 +28,13 @@
 #define TILECACHEQUEUE_H
 
 #include <QQueue>
-#include "cacheitemqueue.h"
 #include <QThread>
 #include <QMutex>
 #include <QWaitCondition>
 #include <QObject>
 #include <QMutexLocker>
 #include "pureimagecache.h"
+#include "cacheitemqueue.h"
 #include "cache.h"
 
 namespace core {

@@ -379,9 +379,11 @@ namespace mapcontrol
         bool ShowHome()const{return showhome;}
         void SetShowDiagnostics(bool const& value);
         void SetUavPic(QString UAVPic);
-                QMap<int, UAVItem*> UAVS;
+        QMap<int, UAVItem*> UAVS;
+        MapGraphicItem *getMap() const;
+
     private:
-        internals::Core *core;
+                internals::Core *core;
         QGraphicsScene mscene;
         bool useOpenGL;
         GeoCoderStatusCode x;

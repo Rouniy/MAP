@@ -65,7 +65,6 @@ namespace mapcontrol
         SetShowDiagnostics(showDiag);
         this->setMouseTracking(followmouse);
         SetShowCompass(true);
-
     }
     void OPMapWidget::SetShowDiagnostics(bool const& value)
     {
@@ -424,6 +423,11 @@ namespace mapcontrol
             diagGraphItem=0;
         }
     }
+    MapGraphicItem *OPMapWidget::getMap() const
+    {
+        return map;
+    }
+
 
     //////////////////////////////////////////////
     void OPMapWidget::SetShowCompass(const bool &value)
@@ -456,7 +460,7 @@ namespace mapcontrol
     }
     void OPMapWidget::RipMap()
     {
-        new MapRipper(core,map->SelectedArea());
+        new MapRipper(core,map->ViewArea());
     }
 
 

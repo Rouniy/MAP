@@ -30,9 +30,11 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QLabel>
+
+#include "abstractbaseitem.h"
 #include "../internals/pointlatlng.h"
 #include "mapgraphicitem.h"
-#include <QObject>
+
 namespace mapcontrol
 {
 /**
@@ -40,10 +42,9 @@ namespace mapcontrol
 *
 * @class WayPointItem waypointitem.h "waypointitem.h"
 */
-class WayPointItem:public QObject,public QGraphicsItem
+class WayPointItem: public AbstractBaseItem
 {
     Q_OBJECT
-    Q_INTERFACES(QGraphicsItem)
 public:
     enum { Type = UserType + 1 };
     /**

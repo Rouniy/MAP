@@ -39,6 +39,7 @@ namespace mapcontrol
         Q_OBJECT
     public:
         MapRipper(internals::Core *,internals::RectLatLng const&);
+        ~MapRipper();
         void run();
     private:
         QList<core::Point> points;

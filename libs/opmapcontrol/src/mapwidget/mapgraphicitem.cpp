@@ -47,7 +47,6 @@ namespace mapcontrol
         isMouseOverMarker=false;
         maprect=QRectF(0,0,1022,680);
         core->SetCurrentRegion(internals::Rectangle(0, 0, maprect.width(), maprect.height()));
-        core->SetMapType(MapType::GoogleHybrid);
         this->SetZoom(2);
         connect(core,SIGNAL(OnNeedInvalidation()),this,SLOT(Core_OnNeedInvalidation()));
         connect(core,SIGNAL(OnMapDrag()),this,SLOT(ChildPosRefresh()));
@@ -497,6 +496,19 @@ namespace mapcontrol
     double MapGraphicItem::ZoomTotal()
     {
         return zoomDigi+zoomReal;
+    }
+
+    internals::RectLatLng MapGraphicItem::ViewArea()
+    {
+        internals::PointLatLng p1 = FromLocalToLatLng(0,0);
+        internals::PointLatLng p2 = FromLocalToLatLng(maprect.width(), maprect.height());
+
+        double x1 = qMin(p1.Lng(), p2.Lng());
+        double y1 = qMax(p1.Lat(), p2.Lat());
+        double x2 = qMax(p1.Lng(), p2.Lng());
+        double y2 = qMin(p1.Lat(), p2.Lat());
+
+        return internals::RectLatLng(y1, x1, x2 - x1, y1 - y2);
     }
 
     void MapGraphicItem::SetZoom(double const& value)

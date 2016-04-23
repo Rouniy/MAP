@@ -31,7 +31,11 @@
 namespace mapcontrol
 {
 
-    MapRipper::MapRipper(internals::Core * core, const internals::RectLatLng & rect):sleep(100),cancel(false),progressForm(0),core(core)
+    MapRipper::MapRipper(internals::Core * core, const internals::RectLatLng & rect)
+        :sleep(10),
+          cancel(false),
+          progressForm(0),
+          core(core)
     {
         if(!rect.IsEmpty())
         {
@@ -41,8 +45,8 @@ namespace mapcontrol
             zoom=core->Zoom();
             maxzoom=core->MaxZoom();
             points=core->Projection()->GetAreaTileList(area,zoom,0);
-            this->start();
             progressForm->show();
+            this->start();
             connect(this,SIGNAL(percentageChanged(int)),progressForm,SLOT(SetPercentage(int)));
             connect(this,SIGNAL(numberOfTilesChanged(int,int)),progressForm,SLOT(SetNumberOfTiles(int,int)));
             connect(this,SIGNAL(providerChanged(QString,int)),progressForm,SLOT(SetProvider(QString,int)));
@@ -50,6 +54,12 @@ namespace mapcontrol
             emit numberOfTilesChanged(0,0);
         }
     }
+
+    MapRipper::~MapRipper()
+    {
+
+    }
+
     void MapRipper::finish()
     {
         if(zoom<maxzoom)
@@ -68,6 +78,7 @@ namespace mapcontrol
             {
                 points.clear();
                 points=core->Projection()->GetAreaTileList(area,zoom,0);
+                progressForm->show();
                 this->start();
             }
             else
@@ -106,6 +117,10 @@ namespace mapcontrol
                 {
                     emit providerChanged(core::MapType::StrByType(type),zoom);
                     QByteArray img = OPMaps::Instance()->GetImageFrom(type, p, zoom);
+                    if(progressForm->isHidden())
+                    {
+                        return;
+                    }
                     if(img.length()!=0)
                     {
                         goodtile=true;
@@ -121,7 +136,7 @@ namespace mapcontrol
                 else
                 {
                     i--;
-                    QThread::msleep(1000);
+                    QThread::msleep(100);
                     continue;
                 }
             }

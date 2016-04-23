@@ -32,14 +32,14 @@
 #include <QLabel>
 #include "../internals/pointlatlng.h"
 #include <QObject>
+#include "abstractbaseitem.h"
 
 namespace mapcontrol
 {
 
-    class TrailItem:public QObject,public QGraphicsItem
+    class TrailItem: public AbstractBaseItem
     {
         Q_OBJECT
-        Q_INTERFACES(QGraphicsItem)
     public:
                 enum { Type = UserType + 3 };
         TrailItem(internals::PointLatLng const& coord,int const& altitude, QBrush color, QGraphicsItem* parent);

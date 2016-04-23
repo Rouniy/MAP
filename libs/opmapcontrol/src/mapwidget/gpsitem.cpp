@@ -28,7 +28,8 @@
 #include "gpsitem.h"
 namespace mapcontrol
 {
-    GPSItem::GPSItem(MapGraphicItem* map,OPMapWidget* parent,QString uavPic):map(map),mapwidget(parent),showtrail(true),showtrailline(true),trailtime(5),traildistance(50),autosetreached(true)
+    GPSItem::GPSItem(MapGraphicItem* map,OPMapWidget* parent,QString uavPic)
+        :AbstractBaseItem(map),map(map),mapwidget(parent),showtrail(true),showtrailline(true),trailtime(5),traildistance(50),autosetreached(true)
     ,autosetdistance(100)
     {
         pic.load(uavPic);

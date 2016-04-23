@@ -34,100 +34,100 @@
 
 
 namespace core {
-    class LanguageType:public QObject
+class LanguageType:public QObject
+{
+    Q_OBJECT
+    Q_ENUMS(Types)
+public:
+    enum Types
     {
-        Q_OBJECT
-        Q_ENUMS(Types)
-    public:
-                enum Types
-        {
-            Arabic,
-            Bulgarian,
-            Bengali,
-            Catalan,
-            Czech,
-            Danish,
-            German,
-            Greek,
-            English,
-            EnglishAustralian,
-            EnglishGreatBritain,
-            Spanish,
-            Basque,
-            Finnish,
-            Filipino,
-            French,
-            Galician,
-            Gujarati,
-            Hindi,
-            Croatian,
-            Hungarian,
-            Indonesian,
-            Italian,
-            Hebrew,
-            Japanese,
-            Kannada,
-            Korean,
-            Lithuanian,
-            Latvian,
-            Malayalam,
-            Marathi,
-            Dutch,
-            NorwegianNynorsk,
-            Norwegian,
-            Oriya,
-            Polish,
-            Portuguese,
-            PortugueseBrazil,
-            PortuguesePortugal,
-            Romansch,
-            Romanian,
-            Russian,
-            Slovak,
-            Slovenian,
-            Serbian,
-            Swedish,
-            Tamil,
-            Telugu,
-            Thai,
-            Turkish,
-            Ukrainian,
-            Vietnamese,
-            ChineseSimplified,
-            ChineseTraditional
-        };
-        
-        static QString StrByType(Types const& value)
-        {
-            QMetaObject metaObject = LanguageType().staticMetaObject;
-            QMetaEnum metaEnum= metaObject.enumerator( metaObject.indexOfEnumerator("Types"));
-            QString s=metaEnum.valueToKey(value);
-            return s;
-        }
-        static Types TypeByStr(QString const& value)
-        {
-            QMetaObject metaObject = LanguageType().staticMetaObject;
-            QMetaEnum metaEnum= metaObject.enumerator( metaObject.indexOfEnumerator("Types"));
-            Types s=(Types)metaEnum.keyToValue(value.toLatin1());
-            return s;
-        }
-        static QStringList TypesList()
-        {
-            QStringList ret;
-            QMetaObject metaObject = LanguageType().staticMetaObject;
-            QMetaEnum metaEnum= metaObject.enumerator( metaObject.indexOfEnumerator("Types"));
-            for(int x=0;x<metaEnum.keyCount();++x)
-            {
-                ret.append(metaEnum.key(x));
-            }
-            return ret;
-        }
-        QString toShortString(Types type);
-        LanguageType();
-        ~LanguageType();
-    private:
-        QStringList list;
+        Arabic,
+        Bulgarian,
+        Bengali,
+        Catalan,
+        Czech,
+        Danish,
+        German,
+        Greek,
+        English,
+        EnglishAustralian,
+        EnglishGreatBritain,
+        Spanish,
+        Basque,
+        Finnish,
+        Filipino,
+        French,
+        Galician,
+        Gujarati,
+        Hindi,
+        Croatian,
+        Hungarian,
+        Indonesian,
+        Italian,
+        Hebrew,
+        Japanese,
+        Kannada,
+        Korean,
+        Lithuanian,
+        Latvian,
+        Malayalam,
+        Marathi,
+        Dutch,
+        NorwegianNynorsk,
+        Norwegian,
+        Oriya,
+        Polish,
+        Portuguese,
+        PortugueseBrazil,
+        PortuguesePortugal,
+        Romansch,
+        Romanian,
+        Russian,
+        Slovak,
+        Slovenian,
+        Serbian,
+        Swedish,
+        Tamil,
+        Telugu,
+        Thai,
+        Turkish,
+        Ukrainian,
+        Vietnamese,
+        ChineseSimplified,
+        ChineseTraditional
     };
-    
+
+    static QString StrByType(Types const& value)
+    {
+        QMetaObject metaObject = LanguageType().staticMetaObject;
+        QMetaEnum metaEnum= metaObject.enumerator( metaObject.indexOfEnumerator("Types"));
+        QString s=metaEnum.valueToKey(value);
+        return s;
+    }
+    static Types TypeByStr(QString const& value)
+    {
+        QMetaObject metaObject = LanguageType().staticMetaObject;
+        QMetaEnum metaEnum= metaObject.enumerator( metaObject.indexOfEnumerator("Types"));
+        Types s=(Types)metaEnum.keyToValue(value.toLatin1());
+        return s;
+    }
+    static QStringList TypesList()
+    {
+        QStringList ret;
+        QMetaObject metaObject = LanguageType().staticMetaObject;
+        QMetaEnum metaEnum= metaObject.enumerator( metaObject.indexOfEnumerator("Types"));
+        for(int x=0;x<metaEnum.keyCount();++x)
+        {
+            ret.append(metaEnum.key(x));
+        }
+        return ret;
+    }
+    QString toShortString(Types type);
+    LanguageType();
+    ~LanguageType();
+private:
+    QStringList list;
+};
+
 }
 #endif // LANGUAGETYPE_H

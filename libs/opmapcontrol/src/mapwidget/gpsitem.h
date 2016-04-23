@@ -49,10 +49,9 @@ namespace mapcontrol
 *
 * @class UAVItem gpsitem.h "mapwidget/gpsitem.h"
 */
-    class GPSItem:public QObject,public QGraphicsItem
+    class GPSItem: public AbstractBaseItem
     {
         Q_OBJECT
-        Q_INTERFACES(QGraphicsItem)
     public:
                 enum { Type = UserType + 6 };
         GPSItem(MapGraphicItem* map,OPMapWidget* parent, QString uavPic=QString::fromUtf8(":/uavs/images/mapquad.png"));

@@ -36,8 +36,10 @@ namespace core {
             m_pInstance=new OPMaps;
         return m_pInstance;
     }
-    OPMaps::OPMaps():RetryLoadTile(2),useMemoryCache(true)
+    OPMaps::OPMaps()
+        :RetryLoadTile(2),useMemoryCache(true)
     {
+        //LOCAL_ASSERT(connect(&network, SIGNAL(finished(QNetworkReply*)),&q, SLOT(quit())));
         accessmode=AccessMode::ServerAndCache;
         Language=LanguageType::PortuguesePortugal;
         LanguageStr=LanguageType().toShortString(Language);
@@ -83,7 +85,7 @@ namespace core {
 #ifdef DEBUG_GMAPS
             qDebug()<<"Tile not in memory";
 #endif //DEBUG_GMAPS
-            if(accessmode != (AccessMode::ServerOnly))
+            if(accessmode & AccessMode::UseCache)
             {
 #ifdef DEBUG_GMAPS
                 qDebug()<<"Try tile from DataBase";
@@ -107,12 +109,15 @@ namespace core {
                     return ret;
                 }
             }
-            if(accessmode!=AccessMode::CacheOnly)
+            if(accessmode & AccessMode::UseServer)
             {
+                networkGuard.lock();
                 QEventLoop q;
                 QNetworkReply *reply;
                 QNetworkRequest qheader;
-                QNetworkAccessManager network;
+                QNetworkAccessManager* netPtr = new QNetworkAccessManager();
+                QNetworkAccessManager& network = *netPtr;
+                networkGuard.unlock();
                 QTimer tT;
                 tT.setSingleShot(true);
                 connect(&network, SIGNAL(finished(QNetworkReply*)),
@@ -219,10 +224,12 @@ namespace core {
                     errorvars.lock();
                     ++diag.networkerrors;
                     errorvars.unlock();
+                    netPtr->deleteLater();
                     reply->deleteLater();
                     return ret;
                 }
                 ret=reply->readAll();
+                netPtr->deleteLater();
                 reply->deleteLater();//TODO can't this be global??
                 if(ret.isEmpty())
                 {
@@ -247,7 +254,7 @@ namespace core {
 #endif //DEBUG_GMAPS
                     AddTileToMemoryCache(RawTile(type,pos,zoom),ret);
                 }
-                if(accessmode!=AccessMode::ServerOnly)
+                if(accessmode & AccessMode::UseServer)
                 {
 #ifdef DEBUG_GMAPS
                     qDebug()<<"Add tile to DataBase";

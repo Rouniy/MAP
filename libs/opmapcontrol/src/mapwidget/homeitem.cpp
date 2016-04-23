@@ -27,7 +27,8 @@
 #include "homeitem.h"
 namespace mapcontrol
 {
-    HomeItem::HomeItem(MapGraphicItem* map,OPMapWidget* parent):safe(true),map(map),mapwidget(parent),showsafearea(true),safearea(1000),altitude(0)
+    HomeItem::HomeItem(MapGraphicItem* map,OPMapWidget* parent)
+        :AbstractBaseItem(map),safe(true),map(map),mapwidget(parent),showsafearea(false),safearea(1000),altitude(0)
     {
         pic.load(QString::fromUtf8(":/markers/images/home2.svg"));
         pic=pic.scaled(30,30,Qt::IgnoreAspectRatio);
@@ -37,9 +38,9 @@ namespace mapcontrol
         this->setZValue(4);
         coord=internals::PointLatLng(50,50);
 
-//        this->setFlag(QGraphicsItem::ItemIsMovable,true);
-//        this->setFlag(QGraphicsItem::ItemIgnoresTransformations,true);
-//        this->setFlag(QGraphicsItem::ItemIsSelectable,true);
+        this->setFlag(QGraphicsItem::ItemIsMovable,true);
+        this->setFlag(QGraphicsItem::ItemIgnoresTransformations,true);
+        this->setFlag(QGraphicsItem::ItemIsSelectable,true);
     }
 
     void HomeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

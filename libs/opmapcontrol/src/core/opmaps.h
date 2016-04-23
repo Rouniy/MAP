@@ -83,6 +83,8 @@ namespace core {
         static OPMaps* m_pInstance;
         diagnostics diag;
         QMutex errorvars;
+        QMutex networkGuard;
+        //QNetworkAccessManager network;
     protected:
         // MemoryCache TilesInMemory;
 

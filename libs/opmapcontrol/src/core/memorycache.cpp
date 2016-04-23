@@ -36,6 +36,7 @@ namespace core {
 
     QByteArray MemoryCache::GetTileFromMemoryCache(const RawTile &tile)
     {
+        return QByteArray();
         kiberCacheLock.lockForRead();
         QByteArray pic;
         pic=TilesInMemory.cachequeue.value(tile);
@@ -45,6 +46,7 @@ namespace core {
     }
     void MemoryCache::AddTileToMemoryCache(const RawTile &tile, const QByteArray &pic)
     {
+        return;
         kiberCacheLock.lockForWrite();
         // QPixmapCache::Key key=TilesInMemory.insert(pic);
         TilesInMemory.memoryCacheSize +=pic.size();

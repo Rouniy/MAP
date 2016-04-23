@@ -28,6 +28,7 @@
 namespace mapcontrol
 {
     WayPointItem::WayPointItem(const internals::PointLatLng &coord,double const& altitude, MapGraphicItem *map) :
+        AbstractBaseItem(map),
         map(map),
         autoreachedEnabled(true),
         coord(coord),
@@ -46,6 +47,7 @@ namespace mapcontrol
         this->setFlag(QGraphicsItem::ItemIsMovable,true);
         this->setFlag(QGraphicsItem::ItemIgnoresTransformations,true);
         this->setFlag(QGraphicsItem::ItemIsSelectable,true);
+        this->setZValue(4);
        // transf.translate(picture.width()/2,picture.height());
        // this->setTransform(transf);
         SetShowNumber(shownumber);
