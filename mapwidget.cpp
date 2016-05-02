@@ -167,16 +167,15 @@ void MapWidget::mapTypeChanged(int type)
 
 void MapWidget::mouseDoubleClickEvent(QMouseEvent* event)
 {
-	QGraphicsView::mouseMoveEvent(event);
-	QPointF p=event->localPos();
-	p=map->mapFromParent(p);
+    QPointF p=event->localPos();
+    p=map->mapFromParent(p);
 
-	QString path;
-	internals::PointLatLng coord = map->FromLocalToLatLng(p.x(), p.y());
-	mapcontrol::POIItem * item = new mapcontrol::POIItem(this->getMap(), this, path);
-	item->setParentItem(this->getMap());
-	item->SetCoord(coord);
-	item->RefreshPos();
+    QString path;
+    internals::PointLatLng coord = map->FromLocalToLatLng(p.x(), p.y());
+    mapcontrol::POIItem * item = new mapcontrol::POIItem(this->getMap(), this, path);
+    item->setParentItem(this->getMap());
+    item->SetCoord(coord);
+    item->RefreshPos();
 }
 
 void MapWidget::SetExtWindows(MainWindow* window)
