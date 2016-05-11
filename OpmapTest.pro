@@ -15,10 +15,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         testwindow.cpp \
-    mapwidget.cpp
+    mapwidget.cpp \
+    menu.cpp
 
 HEADERS  += testwindow.h \
-    mapwidget.h
+    mapwidget.h \
+    menu.h
 
 include(libs/opmapcontrol/opmapcontrol_external.pri)
 

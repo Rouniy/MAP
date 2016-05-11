@@ -5,8 +5,7 @@
 #include <QMenu>
 #include <QContextMenuEvent>
 #include "src/mapwidget/poiitem.h"
-//#include "appcore.h"
-//#include "coresettings.h"
+#include "menu.h"
 
 #define USE_LOCAL_CACHE "USE_LOCAL_CACHE"
 #define USE_INTERNET_SERVER "USER_INTERNET_SERVER"
@@ -27,7 +26,7 @@ MapWidget::MapWidget(QWidget *parent) :
 
     this->setContextMenuPolicy(Qt::ActionsContextMenu);
 
-    QSignalMapper* signalMapper = new QSignalMapper (this) ;
+    /*QSignalMapper* signalMapper = new QSignalMapper (this) ;
     m_GoogleHybrid = new QAction(this);
     m_GoogleHybrid->setText("GoogleHybrid");
     m_GoogleHybrid->setChecked(true);
@@ -76,7 +75,7 @@ MapWidget::MapWidget(QWidget *parent) :
     //this->addAction(m_ArcGIS_Terrain);
     connect(m_ArcGIS_Terrain, SIGNAL(triggered()), signalMapper, SLOT(map()));
     signalMapper->setMapping(m_ArcGIS_Terrain, MapType::ArcGIS_Terrain);
-
+*/
     //QSettings settings(QUOTE(COMPANY_NAME), QUOTE(APP_NAME));
 	//QSettings& settings = AppCore::Impl().GetSettings().getSettings();
 
@@ -117,19 +116,38 @@ void MapWidget::contextMenuEvent(QContextMenuEvent *event)
     mapcontrol::OPMapWidget::contextMenuEvent(event);
     if(!event->isAccepted())
     {
-        QMenu menu(this);
-        menu.addAction(m_GoogleTerrain);
-        menu.addAction(m_GoogleSatellite);
-        menu.addAction(m_GoogleMap);
-        menu.addAction(m_YandexMap);
-        menu.addAction(m_ArcGIS_Map);
-        menu.addAction(m_ArcGIS_Satellite);
-        menu.addAction(m_ArcGIS_Terrain);
-        menu.addSeparator();
-        menu.addAction(m_useLocalCache);
-        menu.addAction(m_useInternetServer);
-        menu.exec(event->globalPos());
+        //TODO: Replace absolute path with the configured path
+        Menu* m = new Menu(this, "D:/Project/Prototype/Map/Ico/");
+        menuPosition = event->globalPos();
+        m->PopUpMenu.exec(menuPosition);
+        connect(m, SIGNAL(clicked(QString)), this, SLOT(PopUp(QString)));
+
+        //QMenu menu(this);
+        //menu.addAction(m_GoogleTerrain);
+        //menu.addAction(m_GoogleSatellite);
+        //menu.addAction(m_GoogleMap);
+        //menu.addAction(m_YandexMap);
+        //menu.addAction(m_ArcGIS_Map);
+        //menu.addAction(m_ArcGIS_Satellite);
+        //menu.addAction(m_ArcGIS_Terrain);
+        //menu.addSeparator();
+        //menu.addAction(m_useLocalCache);
+        //menu.addAction(m_useInternetServer);
+        //menu.exec(event->globalPos());
     }
+}
+
+void MapWidget::PopUp(const QString &text)
+{
+    QPointF p=menuPosition;
+    p=map->mapFromParent(p);
+
+    QString path;
+    internals::PointLatLng coord = map->FromLocalToLatLng(p.x(), p.y());
+    mapcontrol::POIItem * item = new mapcontrol::POIItem(this->getMap(), this, path);
+    item->setParentItem(this->getMap());
+    item->SetCoord(coord);
+    item->RefreshPos();
 }
 
 void MapWidget::useCache(bool use)

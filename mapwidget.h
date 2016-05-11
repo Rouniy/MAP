@@ -31,7 +31,8 @@ private:
     QAction * m_ArcGIS_Terrain;
     QAction * m_useLocalCache;
     QAction * m_useInternetServer;
-
+    void PopUp(const QString &text);
+    QPoint menuPosition;
 };
 
 #endif // MAPWIDGET_H
