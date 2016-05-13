@@ -6,6 +6,7 @@
 #include <QContextMenuEvent>
 #include "src/mapwidget/poiitem.h"
 #include "menu.h"
+#include "xmlparser.h"
 
 #define USE_LOCAL_CACHE "USE_LOCAL_CACHE"
 #define USE_INTERNET_SERVER "USER_INTERNET_SERVER"
@@ -116,6 +117,8 @@ void MapWidget::contextMenuEvent(QContextMenuEvent *event)
     mapcontrol::OPMapWidget::contextMenuEvent(event);
     if(!event->isAccepted())
     {
+        XmlParser parser;
+        parser.Parse("");
         //TODO: Replace absolute path with the configured path
         Menu* m = new Menu(this, "D:/Project/Prototype/Map/Ico/");
         menuPosition = event->globalPos();
