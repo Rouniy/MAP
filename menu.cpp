@@ -69,9 +69,8 @@ QMenu* Menu::GetMenuItem(const QStringList &parentDirs, QString name, QMenu *men
     {
         if(addAction)
         {
+            QAction* action = new QAction(name, this);
             QIcon* icon = new QIcon(absoluteFilePath);
-            QAction* action = new QAction(this);
-            action->setText(name);
             action->setIcon(* icon);
             connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
             signalMapper->setMapping(action, name);
