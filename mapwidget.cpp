@@ -118,9 +118,9 @@ void MapWidget::contextMenuEvent(QContextMenuEvent *event)
     if(!event->isAccepted())
     {
         XmlParser parser;
-        parser.Parse("");
+        QHash<QString, QString> info = parser.Parse("D:/Project/Prototype/Map/Ico/desc.xml");
         //TODO: Replace absolute path with the configured path
-        Menu* m = new Menu(this, "D:/Project/Prototype/Map/Ico/");
+        Menu* m = new Menu(this, info, "D:/Project/Prototype/Map/Ico/");
         menuPosition = event->globalPos();
         m->PopUpMenu.exec(menuPosition);
         connect(m, SIGNAL(clicked(QString)), this, SLOT(PopUp(QString)));

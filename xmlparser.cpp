@@ -14,8 +14,14 @@ QHash<QString, QString> XmlParser::Parse(const QString &fileName)
     {
         return results;
     }
-    ReadXml(fileName);
 
+    //
+    QFile* file = new QFile(fileName);
+    if (!file->open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        return results;
+    }
+    QXmlStreamReader xml(file);
     while (!xml.atEnd() && !xml.hasError())
     {
         QXmlStreamReader::TokenType token = xml.readNext();
@@ -23,50 +29,46 @@ QHash<QString, QString> XmlParser::Parse(const QString &fileName)
             continue;
         if (token == QXmlStreamReader::StartElement)
         {
-            if (xml.name() == "ROW")
+            QStringRef name = xml.name();
+            if (name == "ROW")
             {
-                InitResult(xml, results);
+                InitResult(xml, name, results);
             }
         }
     }
+
     return results;
 }
 
-void XmlParser::InitResult(QXmlStreamReader &xml, QHash<QString, QString> &results)
+void XmlParser::InitResult(QXmlStreamReader &xml, const QStringRef &rootElementName, QHash<QString, QString> &results)
 {
     xml.readNext();
-    QStringRef name;
-    QStringRef code;
-    QStringRef filetype;
-    while (!(xml.tokenType() == QXmlStreamReader::EndElement))
+    QString name;
+    QString codeString;
+    QString filetype;
+    while (!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == rootElementName))
     {
         if (xml.tokenType() == QXmlStreamReader::StartElement)
         {
-            if (xml.name() == "CODE")
+            QStringRef elementName = xml.name();
+            if (elementName == "CODE")
             {
-                code = xml.text();
+                xml.readNext();
+                codeString = xml.text().toString();
             }
-            if (xml.name() == "NAME")
+            if (elementName == "NAME")
             {
-                name = xml.text();
+                xml.readNext();
+                name = xml.text().toString();
             }
-            if (xml.name() == "SIGNFILETYPE")
+            if (elementName == "SIGNFILETYPE")
             {
-                filetype = xml.text();
+                xml.readNext();
+                filetype = xml.text().toString();
             }
         }
         xml.readNext();
     }
-    QString codeString = code.toString();
-    QString nameString = name.toString() + filetype.toString();
+    QString nameString = name + filetype;
     results[codeString] = nameString;
-}
-
-void XmlParser::ReadXml(const QString &fileName)
-{
-    QFile file(fileName);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        xml.setDevice(&file);
-    }
 }

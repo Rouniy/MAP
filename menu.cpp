@@ -4,8 +4,10 @@
 #include <QMenu>
 #include "src/mapwidget/poiitem.h"
 
-Menu::Menu(QObject *parent, const QString &iconsPath) : QObject(parent)
+Menu::Menu(QObject *parent, const QHash<QString, QString> &info, const QString &iconsPath)
+    : QObject(parent)
 {
+    this->info = info;
     signalMapper = new QSignalMapper(this);
     QDir dir;
     dir.setPath(iconsPath);
@@ -36,7 +38,7 @@ void Menu::AddFileItem(QDir dir, const QStringList &parentDirs, QMenu* menuParen
         for(int j=0; j< fileNameItems.count() - 1; ++j)
         {
             menuPrev = GetMenuItem(dirs, fileNameItems[j], menuPrev, absoluteFilePath,
-                        j >= fileNameItems.count() - 2);
+                                   j >= fileNameItems.count() - 2);
             dirs.append(fileNameItems[j]);
         }
     }
@@ -69,7 +71,7 @@ QMenu* Menu::GetMenuItem(const QStringList &parentDirs, QString name, QMenu *men
     {
         if(addAction)
         {
-            QAction* action = new QAction(name, this);
+            QAction* action = new QAction(GetName(name), this);
             QIcon* icon = new QIcon(absoluteFilePath);
             action->setIcon(* icon);
             connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
@@ -84,4 +86,9 @@ QMenu* Menu::GetMenuItem(const QStringList &parentDirs, QString name, QMenu *men
             return menu;
         }
     }
+}
+
+QString Menu::GetName(QString &code)
+{
+    return this->info.contains(code)?this->info[code]:code;
 }
