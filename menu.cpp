@@ -4,14 +4,15 @@
 #include <QMenu>
 #include "src/mapwidget/poiitem.h"
 
-Menu::Menu(QObject *parent, const QHash<QString, QString> &info, const QString &iconsPath)
+Menu::Menu(QObject *parent, const QHash<QString, QString> &info, QMenu *popUpMenu, const QString &iconsPath)
     : QObject(parent)
 {
+    PopUpMenu = popUpMenu;
     this->info = info;
     signalMapper = new QSignalMapper(this);
     QDir dir;
     dir.setPath(iconsPath);
-    ScanDir(dir, QStringList(), &PopUpMenu);
+    ScanDir(dir, QStringList(), PopUpMenu);
     connect(signalMapper, SIGNAL(mapped(QString)), this, SLOT(menuSelection(QString)));
 }
 

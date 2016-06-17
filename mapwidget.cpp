@@ -27,7 +27,7 @@ MapWidget::MapWidget(QWidget *parent) :
 
     this->setContextMenuPolicy(Qt::ActionsContextMenu);
 
-    /*QSignalMapper* signalMapper = new QSignalMapper (this) ;
+    QSignalMapper* signalMapper = new QSignalMapper (this) ;
     m_GoogleHybrid = new QAction(this);
     m_GoogleHybrid->setText("GoogleHybrid");
     m_GoogleHybrid->setChecked(true);
@@ -40,7 +40,7 @@ MapWidget::MapWidget(QWidget *parent) :
     //this->addAction(m_GoogleTerrain);
     connect(m_GoogleTerrain, SIGNAL(triggered()), signalMapper, SLOT(map()));
     signalMapper->setMapping(m_GoogleTerrain, MapType::GoogleTerrain);
-
+/*
     m_GoogleSatellite = new QAction(this);
     m_GoogleSatellite->setText("GoogleSatellite");
     //this->addAction(m_GoogleSatellite);
@@ -83,20 +83,20 @@ MapWidget::MapWidget(QWidget *parent) :
     m_useLocalCache = new QAction(this);
     m_useLocalCache->setText("Use local cache");
     m_useLocalCache->setCheckable(true);
-	//m_useLocalCache->setChecked(settings.value(USE_LOCAL_CACHE, true).toBool());
+    //m_useLocalCache->setChecked(settings.value(USE_LOCAL_CACHE, true).toBool());
     useCache(m_useLocalCache->isChecked());
     connect(m_useLocalCache, SIGNAL(triggered(bool)), this, SLOT(useCache(bool)));
-    //this->addAction(m_useLocalCache);
+    this->addAction(m_useLocalCache);
 
     m_useInternetServer = new QAction(this);
     m_useInternetServer->setText("Use internet server");
     m_useInternetServer->setCheckable(true);
-	//m_useInternetServer->setChecked(settings.value(USE_INTERNET_SERVER, true).toBool());
+    //m_useInternetServer->setChecked(settings.value(USE_INTERNET_SERVER, true).toBool());
     useServer(m_useInternetServer->isChecked());
     connect(m_useInternetServer, SIGNAL(triggered(bool)), this, SLOT(useServer(bool)));
-    //this->addAction(m_useInternetServer);
-	//LOCAL_ASSERT(connect(signalMapper, SIGNAL(mapped(int)),this, SLOT(mapTypeChanged(int))));
-    //setContextMenuPolicy(Qt::DefaultContextMenu);
+    this->addAction(m_useInternetServer);
+    //LOCAL_ASSERT(connect(signalMapper, SIGNAL(mapped(int)),this, SLOT(mapTypeChanged(int))));
+    setContextMenuPolicy(Qt::DefaultContextMenu);
 
 	//OPMaps::Instance()->setAccessMode((AccessMode::Types)(OPMaps::Instance()->GetAccessMode() & AccessMode::UseServer));
 	OPMaps::Instance()->setAccessMode((AccessMode::Types)(OPMaps::Instance()->GetAccessMode() | AccessMode::UseServer));
@@ -118,25 +118,26 @@ void MapWidget::contextMenuEvent(QContextMenuEvent *event)
     if(!event->isAccepted())
     {
         XmlParser parser;
-        QHash<QString, QString> info = parser.Parse("D:/Project/Prototype/Map/Ico/desc.xml");
         //TODO: Replace absolute path with the configured path
-        Menu m(this, info, "D:/Project/Prototype/Map/Ico/");
+        QHash<QString, QString> info = parser.Parse("D:/Project/Prototype/Map/Ico/desc.xml");
+
+        QMenu menu(this);
+        menu.addAction(m_GoogleTerrain);
+//        menu.addAction(m_GoogleSatellite);
+//        menu.addAction(m_GoogleMap);
+//        menu.addAction(m_YandexMap);
+//        menu.addAction(m_ArcGIS_Map);
+//        menu.addAction(m_ArcGIS_Satellite);
+//        menu.addAction(m_ArcGIS_Terrain);
+        menu.addSeparator();
+        menu.addAction(m_useLocalCache);
+        menu.addAction(m_useInternetServer);
+
+        //TODO: Replace absolute path with the configured path
+        Menu m(this, info, &menu, "D:/Project/Prototype/Map/Ico/");
         menuPosition = event->globalPos();
         connect(&m, SIGNAL(clicked(QString)), this, SLOT(PopUp(QString)));
-        m.PopUpMenu.exec(menuPosition);
-
-        //QMenu menu(this);
-        //menu.addAction(m_GoogleTerrain);
-        //menu.addAction(m_GoogleSatellite);
-        //menu.addAction(m_GoogleMap);
-        //menu.addAction(m_YandexMap);
-        //menu.addAction(m_ArcGIS_Map);
-        //menu.addAction(m_ArcGIS_Satellite);
-        //menu.addAction(m_ArcGIS_Terrain);
-        //menu.addSeparator();
-        //menu.addAction(m_useLocalCache);
-        //menu.addAction(m_useInternetServer);
-        //menu.exec(event->globalPos());
+        menu.exec(menuPosition);
     }
 }
 

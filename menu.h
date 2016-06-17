@@ -10,8 +10,8 @@ class Menu : public QObject
 {
     Q_OBJECT
 public:
-    explicit Menu(QObject *parent, const QHash<QString, QString> &info, const QString &iconsPath = ".");
-    QMenu PopUpMenu;
+    explicit Menu(QObject *parent, const QHash<QString, QString> &info, QMenu *popUpMenu, const QString &iconsPath = ".");
+    QMenu* PopUpMenu;
 private:
     QHash<QString, QMenu*> MenuItemsList;
     QSignalMapper* signalMapper;
