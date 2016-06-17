@@ -23,9 +23,10 @@ private:
                        const QString &absoluteFilePath, bool addAction);
     QString Menu::GetName(QString &code);
 signals:
-    void clicked(const QString &text);
+    void clicked(QString text);
 
 public slots:
+    void menuSelection(QString name);
 };
 
 #endif // MENU_H

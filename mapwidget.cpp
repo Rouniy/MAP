@@ -120,10 +120,10 @@ void MapWidget::contextMenuEvent(QContextMenuEvent *event)
         XmlParser parser;
         QHash<QString, QString> info = parser.Parse("D:/Project/Prototype/Map/Ico/desc.xml");
         //TODO: Replace absolute path with the configured path
-        Menu* m = new Menu(this, info, "D:/Project/Prototype/Map/Ico/");
+        Menu m(this, info, "D:/Project/Prototype/Map/Ico/");
         menuPosition = event->globalPos();
-        m->PopUpMenu.exec(menuPosition);
-        connect(m, SIGNAL(clicked(QString)), this, SLOT(PopUp(QString)));
+        connect(&m, SIGNAL(clicked(QString)), this, SLOT(PopUp(QString)));
+        m.PopUpMenu.exec(menuPosition);
 
         //QMenu menu(this);
         //menu.addAction(m_GoogleTerrain);
@@ -140,17 +140,8 @@ void MapWidget::contextMenuEvent(QContextMenuEvent *event)
     }
 }
 
-void MapWidget::PopUp(const QString &text)
+void MapWidget::PopUp(QString itemId)
 {
-    QPointF p=menuPosition;
-    p=map->mapFromParent(p);
-
-    QString path;
-    internals::PointLatLng coord = map->FromLocalToLatLng(p.x(), p.y());
-    mapcontrol::POIItem * item = new mapcontrol::POIItem(this->getMap(), this, path);
-    item->setParentItem(this->getMap());
-    item->SetCoord(coord);
-    item->RefreshPos();
 }
 
 void MapWidget::useCache(bool use)

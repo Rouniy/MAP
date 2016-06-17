@@ -19,7 +19,7 @@ public slots:
     void useCache(bool use);
     void useServer(bool use);
     void mapTypeChanged(int type);
-    void PopUp(const QString &text);
+    void PopUp(QString itemId);
 private:
     MainWindow* m_window; //uses for POI creation
     QAction * m_GoogleHybrid;

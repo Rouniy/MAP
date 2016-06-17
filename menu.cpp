@@ -12,7 +12,7 @@ Menu::Menu(QObject *parent, const QHash<QString, QString> &info, const QString &
     QDir dir;
     dir.setPath(iconsPath);
     ScanDir(dir, QStringList(), &PopUpMenu);
-    connect(signalMapper, SIGNAL(mapped(QString)), this, SIGNAL(clicked(QString)));
+    connect(signalMapper, SIGNAL(mapped(QString)), this, SLOT(menuSelection(QString)));
 }
 
 void Menu::ScanDir(QDir dir, const QStringList &parentDirs, QMenu* menuParent)
@@ -86,6 +86,11 @@ QMenu* Menu::GetMenuItem(const QStringList &parentDirs, QString name, QMenu *men
             return menu;
         }
     }
+}
+
+void Menu::menuSelection(QString name)
+{
+    emit clicked(name);
 }
 
 QString Menu::GetName(QString &code)
