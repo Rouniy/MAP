@@ -19,6 +19,7 @@ public slots:
     void useCache(bool use);
     void useServer(bool use);
     void mapTypeChanged(int type);
+    void PopUp(QString itemId);
 private:
     MainWindow* m_window; //uses for POI creation
     QAction * m_GoogleHybrid;
@@ -31,7 +32,7 @@ private:
     QAction * m_ArcGIS_Terrain;
     QAction * m_useLocalCache;
     QAction * m_useInternetServer;
-
+    QPoint menuPosition;
 };
 
 #endif // MAPWIDGET_H

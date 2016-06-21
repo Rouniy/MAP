@@ -5,8 +5,8 @@
 #include <QMenu>
 #include <QContextMenuEvent>
 #include "src/mapwidget/poiitem.h"
-//#include "appcore.h"
-//#include "coresettings.h"
+#include "menu.h"
+#include "xmlparser.h"
 
 #define USE_LOCAL_CACHE "USE_LOCAL_CACHE"
 #define USE_INTERNET_SERVER "USER_INTERNET_SERVER"
@@ -40,7 +40,7 @@ MapWidget::MapWidget(QWidget *parent) :
     //this->addAction(m_GoogleTerrain);
     connect(m_GoogleTerrain, SIGNAL(triggered()), signalMapper, SLOT(map()));
     signalMapper->setMapping(m_GoogleTerrain, MapType::GoogleTerrain);
-
+/*
     m_GoogleSatellite = new QAction(this);
     m_GoogleSatellite->setText("GoogleSatellite");
     //this->addAction(m_GoogleSatellite);
@@ -76,27 +76,27 @@ MapWidget::MapWidget(QWidget *parent) :
     //this->addAction(m_ArcGIS_Terrain);
     connect(m_ArcGIS_Terrain, SIGNAL(triggered()), signalMapper, SLOT(map()));
     signalMapper->setMapping(m_ArcGIS_Terrain, MapType::ArcGIS_Terrain);
-
+*/
     //QSettings settings(QUOTE(COMPANY_NAME), QUOTE(APP_NAME));
 	//QSettings& settings = AppCore::Impl().GetSettings().getSettings();
 
     m_useLocalCache = new QAction(this);
     m_useLocalCache->setText("Use local cache");
     m_useLocalCache->setCheckable(true);
-	//m_useLocalCache->setChecked(settings.value(USE_LOCAL_CACHE, true).toBool());
+    //m_useLocalCache->setChecked(settings.value(USE_LOCAL_CACHE, true).toBool());
     useCache(m_useLocalCache->isChecked());
     connect(m_useLocalCache, SIGNAL(triggered(bool)), this, SLOT(useCache(bool)));
-    //this->addAction(m_useLocalCache);
+    this->addAction(m_useLocalCache);
 
     m_useInternetServer = new QAction(this);
     m_useInternetServer->setText("Use internet server");
     m_useInternetServer->setCheckable(true);
-	//m_useInternetServer->setChecked(settings.value(USE_INTERNET_SERVER, true).toBool());
+    //m_useInternetServer->setChecked(settings.value(USE_INTERNET_SERVER, true).toBool());
     useServer(m_useInternetServer->isChecked());
     connect(m_useInternetServer, SIGNAL(triggered(bool)), this, SLOT(useServer(bool)));
-    //this->addAction(m_useInternetServer);
-	//LOCAL_ASSERT(connect(signalMapper, SIGNAL(mapped(int)),this, SLOT(mapTypeChanged(int))));
-    //setContextMenuPolicy(Qt::DefaultContextMenu);
+    this->addAction(m_useInternetServer);
+    //LOCAL_ASSERT(connect(signalMapper, SIGNAL(mapped(int)),this, SLOT(mapTypeChanged(int))));
+    setContextMenuPolicy(Qt::DefaultContextMenu);
 
 	//OPMaps::Instance()->setAccessMode((AccessMode::Types)(OPMaps::Instance()->GetAccessMode() & AccessMode::UseServer));
 	OPMaps::Instance()->setAccessMode((AccessMode::Types)(OPMaps::Instance()->GetAccessMode() | AccessMode::UseServer));
@@ -117,19 +117,32 @@ void MapWidget::contextMenuEvent(QContextMenuEvent *event)
     mapcontrol::OPMapWidget::contextMenuEvent(event);
     if(!event->isAccepted())
     {
+        XmlParser parser;
+        //TODO: Replace absolute path with the configured path
+        QHash<QString, QString> info = parser.Parse("D:/Project/Prototype/Map/Ico/desc.xml");
+
         QMenu menu(this);
         menu.addAction(m_GoogleTerrain);
-        menu.addAction(m_GoogleSatellite);
-        menu.addAction(m_GoogleMap);
-        menu.addAction(m_YandexMap);
-        menu.addAction(m_ArcGIS_Map);
-        menu.addAction(m_ArcGIS_Satellite);
-        menu.addAction(m_ArcGIS_Terrain);
+//        menu.addAction(m_GoogleSatellite);
+//        menu.addAction(m_GoogleMap);
+//        menu.addAction(m_YandexMap);
+//        menu.addAction(m_ArcGIS_Map);
+//        menu.addAction(m_ArcGIS_Satellite);
+//        menu.addAction(m_ArcGIS_Terrain);
         menu.addSeparator();
         menu.addAction(m_useLocalCache);
         menu.addAction(m_useInternetServer);
-        menu.exec(event->globalPos());
+
+        //TODO: Replace absolute path with the configured path
+        Menu m(this, info, &menu, "D:/Project/Prototype/Map/Ico/");
+        menuPosition = event->globalPos();
+        connect(&m, SIGNAL(clicked(QString)), this, SLOT(PopUp(QString)));
+        menu.exec(menuPosition);
     }
+}
+
+void MapWidget::PopUp(QString itemId)
+{
 }
 
 void MapWidget::useCache(bool use)
